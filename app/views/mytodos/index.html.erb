@@ -189,14 +189,12 @@
                         <div class="modal-content">
                             <div class="modal-header d-flex justify-content-center">
                                 <h3 class="modal-title ms-4 my-2" id="exampleModalLabel">Are you sure?</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <h5 class="modal-title my-2" id="exampleModalLabel">All your personal data will be errased from the system.</h5>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
-                                <button type="button" class="close btn btn-edit" data-bs-dismiss="modal" aria-label="Close">
-                                    Close window
-                                </button>
                                 <%= button_to "Delete my Account", registration_path(current_user), method: :delete, class: "btn btn-danger my-2" %>
                             </div>
                         </div>

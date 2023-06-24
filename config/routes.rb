@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  get 'mytodos/index'
-  resources :tasks
-  resources :lists
+
+  resources :tasks, only:[:new, :create, :edit, :update, :destroy]
+  resources :lists, only:[:new, :create, :edit, :update, :destroy]
   devise_for :users
+
   root 'home#index'
+  resources :mytodos, only:[:index]
 
 end

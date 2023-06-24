@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     if user_signed_in?
-      redirect_to mytodos_index_path
+      redirect_to mytodos_path
     end
   end
   
