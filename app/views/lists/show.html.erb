@@ -1,10 +1,98 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @list %>
-
-<div>
-  <%= link_to "Edit this list", edit_list_path(@list) %> |
-  <%= link_to "Back to lists", lists_path %>
-
-  <%= button_to "Destroy this list", @list, method: :delete %>
+<style>
+  body{
+    background-color: #ede7dc;
+  }
+  .forum-content{
+    margin: 4% 20% 5% 20%;
+    padding: 2%;
+    background-color: #f2f2f2;
+  }
+    .col-xl-8 h1{
+    color:#18654e;
+    margin-bottom: 7%;
+    }
+    .col-xl-8 p{
+    font-size:1vw;
+    margin-bottom:4%;
+    }
+    .col-xl-4{
+      justify-content: center;
+    }
+  @media(max-width:1199px){
+    .col-xl-4{
+      justify-content: start
+    }
+  }
+  @media(max-width:476px){
+    .forum-content{
+      margin: 0% 10% 5% 10%;
+    }
+  }
+  .btn{
+    border-style: solid;
+    border-radius: 5px;
+    border-width:2px;
+    border-color: #18654e;
+    background-color: #18654e;
+    color:#ffff;
+    transition: none;
+  }
+  .btn:hover{
+    background-color: #ffff;
+    color:#18654e;
+    transition: none;
+  }
+  .comments-count{
+    margin: 2% 0% 4% 0%;
+  }
+  .new-comment{
+    padding: 4%;
+  }
+  .card-body h3{
+    margin-bottom: 2%;
+  }
+  .card-body h5{
+    margin: 4% 0% 4% 0%;
+    color: #18654e;
+  }
+  @media(max-width:1450px){
+      .col-xl-8 p{
+        font-size:1.3vw;
+      }
+  }
+  @media(max-width:1022px){
+      .col-xl-8 p{
+        font-size:1.9vw;
+      }
+    .forum-content{
+        margin: 4% 10% 5% 10%;
+    }
+  }
+  @media(max-width:810px){
+      .col-xl-8 p{
+        font-size:2.4vw;
+      }
+  }
+  @media(max-width:576px){
+      .col-xl-8 p{
+        font-size:3vw;
+      }
+  }
+  @media(max-width:448px){
+      .col-xl-8 p{
+        font-size:4vw;
+      }
+  }
+</style>
+<div class="forum-content" >
+    <div class="row mx-0 mt-5" >
+        <div class="col-xl-8 p-0">
+            <h1><%= @list.title %></h1>
+        </div>
+        <div class="col-xl-4 p-0 d-flex" >
+            <div class="d-flex justify-content-center btn-posts">
+                <p><%= @list.created_at.mday %>/<%= @list.created_at.month %>/<%= @list.created_at.year %></p>
+            </div>
+        </div>
+    </div>
 </div>

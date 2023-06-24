@@ -1,29 +1,84 @@
-<h2>Sign up</h2>
+<style>
+  body{
+    background-color: #ede7dc;
+  }
+  .btn{
+    border-style: solid;
+    border-radius: 5px;
+    border-width:2px;
+    border-color: #18654e;
+    background-color: #18654e;
+    color:#ffff;
+    transition: none;
+  }
+  .btn:hover{
+    background-color: #ffff;
+    color:#18654e;
+    transition: none;
+  }
+  a{
+    text-decoration: none;
+    color: #18654e;
+  }
+  a:hover{
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .card-container{
+    min-width:40rem;
+  }
+  @media(max-width:512px){
+    .card{
+      margin-left:0 !important;
+      margin-right:0!important;
+    }
+    .shared-links{
+    margin-left: 5% !important;
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    }
+    .card-container{
+      min-width:20rem;
+    }
+  }
+</style>
+
+<% if resource.errors.any? %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class=" my-5 d-flex justify-content-center">
+<div class="card-container">
+  <div class="card  mx-5 mt-5 mb-3">
+    <div class="card-header">
+      <h2>Sign up</h2>
+    </div>
+    <div class="card-body">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <div class="field form-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: false, autocomplete: "email", class: "form-control", placeholder: "example@email.com" %>
+        </div>
+        <br/>
+        <div class="field form-group">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          (<%= @minimum_password_length %> characters minimum)
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Your password" %>
+        </div>
+        <br/>
+        <div class="field form-group">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Repeat password" %>
+        </div>
+        <br/>
+        <div class="actions">
+          <%= f.submit "Sign up", class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="shared-links">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
+</div>

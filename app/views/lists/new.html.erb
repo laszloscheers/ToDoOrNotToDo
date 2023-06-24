@@ -1,9 +1,85 @@
-<h1>New list</h1>
+<style>
+  body{
+    background-color: #ede7dc;
+  }
+  .btn{
+    border-style: solid;
+    border-radius: 5px;
+    border-width:2px;
+    border-color: #18654e;
+    background-color: #18654e;
+    color:#ffff;
+  }
+  .btn:hover{
+    background-color: #ffff;
+    color:#18654e;
+  }
+  a{
+    text-decoration: none;
+    color: #18654e;
+  }
+  a:hover{
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .dropdown select{
+    border-style: solid;
+    border-radius: 5px;
+    border-width:2px;
+    border-color: #18654e;
+    background-color: #18654e;
+    color:#ffff;
+    margin-top:1%;
+  }
+  @media(max-width:512px){
+    .card{
+      margin-left:0 !important;
+      margin-right:0!important;
+    }
+    .ms-5{
+    margin-left:1% !important;
 
-<%= render "form", list: @list %>
+    }
+  }
+</style>
 
-<br>
+<div class=" my-5 d-flex justify-content-center">
+  <div class=" px-5 pb-5 pt-4" style="width: 45rem;">
+    <div class="card  mx-5 mt-5 mb-3">
+      <div class="card-header">
+        <h2>Create a List</h2>
+      </div>
+      <div class="card-body">
+        <%= form_with(model: @list) do |form| %>
+                <% if @list.errors.any? %>
+                  <div style="color: red">
+                    <h2><%= pluralize(@list.errors.count, "error") %> prohibited this @list from being saved:</h2>
 
-<div>
-  <%= link_to "Back to lists", lists_path %>
+                    <ul>
+                      <% @list.errors.each do |error| %>
+                        <li><%= error.full_message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="form-group" >
+                  <%= form.label :title, style: "display: block" %>
+                  <%= form.text_field :title, class: "form-control", :required => true %>
+                </div>
+                <br/>
+                <div class="form-group">
+                  <%= form.label :user_id, style: "display: none" %>
+                  <%= form.number_field :user_id, id: :tourist_guide_item_user_id, value: current_user.id, type: :hidden %>
+                </div>
+                <div>
+                  <%= form.submit  "Create Post", class: "btn" %>
+                </div>
+                <br/>
+        <% end %>
+        <div>
+          <%= link_to "Back to My Area", root_path %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
