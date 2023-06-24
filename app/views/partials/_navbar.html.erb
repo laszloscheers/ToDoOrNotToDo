@@ -132,16 +132,17 @@
     border-style: solid;
     border-radius: 5px;
     border-width:2px;
-    border-color: #18654e !important;
-    background-color: #18654e !important;
-    color:#ffff !important;
+    border-color: #f2f2f2 !important;
+    background-color: #f2f2f2 !important;
+    color:rgba(0,0,0,1) !important;
     transition: none;
-    padding: 0.2rem 0.3rem 0.2rem 0.3rem !important;
+    padding: 0.2rem 0.4rem 0.4rem 0.4rem !important;
     font-size: 1.1rem;
   }
   .btn-out:hover{
+    border-color: #ffff !important;
     background-color: #ffff !important;
-    color:#18654e !important;
+    color:color: rgba(0,0,0,0.7) !important; !important;
     transition: none;
   }
   .absolute-right{
@@ -211,7 +212,7 @@
             <% end %>
             <% if user_signed_in? %>
                 <li class="nav-item my-1 ms-3 d-flex justify-content-end align-items-center">
-                    <%= button_to "Sign Out", destroy_user_session_path, class: "nav-link bg-light btn-out me-3", method: :delete %>
+                    <%= button_to "Sign Out", destroy_user_session_path, class: "nav-link bg-light btn-out me-5", method: :delete %>
                 </li>
             <% end %>
         </ul>
