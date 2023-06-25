@@ -14,24 +14,12 @@
     .nav-visible{
       font-size: 0.95rem !important;
     }
-    .my-nav{
-      font-size: 0.95rem !important;
-    }
-    .dropdown-item{
-      font-size: 0.95rem !important;
-    }
     .btn-out{
       font-size: 0.95rem !important;
     }
   }
   @media(max-width:1074px){
     .nav-visible{
-      font-size: 0.85rem !important;
-    }
-    .my-nav{
-      font-size: 0.85rem !important;
-    }
-    .dropdown-item{
       font-size: 0.85rem !important;
     }
     .btn-out{
@@ -42,12 +30,6 @@
     .nav-visible{
       font-size: 0.8rem !important;
     }
-    .my-nav{
-      font-size: 0.8rem !important;
-    }
-    .dropdown-item{
-      font-size: 0.8rem !important;
-    }
     .btn-out{
       font-size: 0.8rem !important;
     }
@@ -55,50 +37,37 @@
   @media(max-width:992px){
     .nav-visible{
       font-size: 1.1rem !important;
-    }
-    .my-nav{
-      font-size: 1.1rem !important;
-    }
-    .dropdown-item{
-      font-size: 1.1rem !important;
+      border: none !important;
+
     }
     .btn-out{
       font-size: 1.1rem !important;
     }
-    .nav-visible{
-      border: none !important;
-    }
-    .my-nav{
-      border: none !important;
-    }
   }
   .nav-visible{
-    border: 2px solid #f8f9fa;
+    border: 2px solid rgba(0, 0, 0, 0.7);
     border-radius: 6px;
-    padding-bottom: 0.3rem !important;
+    padding-bottom: 0.5rem !important;
     padding-top: 0.3rem !important;
-    margin-right: 0.3rem !important;
-    margin-left: 0.3rem !important;
+    padding-left: 0.6rem !important;
+    padding-right: 0.6rem !important;
+    margin-right: 0.5rem !important;
+    margin-left: 0.5rem !important;
     transition: none;
     font-size: 1.1rem;
   }
   .nav-visible:hover{
-    border: 2px solid #18654e;
+    border: 2px solid rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffff !important;
     border-radius: 6px;
-    transition: all .2s ease-in-out;
-  }
-  .my-nav{
-    border: 2px solid #f8f9fa;
-    border-radius: 6px;
-    margin-right: 0.3rem !important;
-    margin-left: 0.3rem !important;
     transition: none;
-    font-size: 1.1rem;
   }
-  .my-nav:hover{
-    border: 2px solid #18654e;
-    border-radius: 6px;
-    transition: all .2s ease-in-out;
+  .fa-user{
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
+  .nav-visible:hover > .fa-user{
+    color: #ffff !important;
   }
   .my_links-right{
     padding-bottom: 0.3rem !important;
@@ -111,13 +80,6 @@
     padding-top: 0.3rem !important;
     padding-right: 0 !important;
     padding-left: 0.3rem !important;
-  }
-  .dropdown-item{
-    background-color: #ffffff !important;
-    font-size: 1.1rem;
-  }
-  .dropdown-item:hover{
-    background-color: #e9ecef !important;
   }
   .container-fluid{
     margin: 0% 2% 0% 2%;
@@ -132,62 +94,23 @@
     border-style: solid;
     border-radius: 5px;
     border-width:2px;
-    border-color: #f2f2f2 !important;
-    background-color: #f2f2f2 !important;
+    border-color: rgba(0, 0, 0, 0.7) !important;
+    background-color: #f8f9fa !important;
     color:rgba(0,0,0,1) !important;
     transition: none;
-    padding: 0.2rem 0.4rem 0.4rem 0.4rem !important;
+    padding: 0.2rem 0.6rem 0.4rem 0.6rem !important;
     font-size: 1.1rem;
   }
   .btn-out:hover{
-    border-color: #ffff !important;
-    background-color: #ffff !important;
-    color:color: rgba(0,0,0,0.7) !important; !important;
+    border-color: rgba(0, 0, 0, 0.7) !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    color: #ffff !important;
     transition: none;
   }
-  .absolute-right{
-    position:absolute !important;
-    top: 125% !important;
-    left: 9% !important;
-    
-  }
+
   @media(max-width:991px){
-    .absolute-right{
-      top: 110% !important;
-      left: 80% !important;
-    }
     .btn-out{
       margin-top: 0.5rem;
-    }
-  }
-  @media(max-width:774px){
-    .absolute-right{
-      top: 110% !important;
-      left: 75% !important;
-    }
-  }
-  @media(max-width:606px){
-    .absolute-right{
-      top: 120% !important;
-      left: 70% !important;
-    }
-  }
-  @media(max-width:544px){
-    .absolute-right{
-      top: 120% !important;
-      left: 65% !important;
-    }
-  }
-  @media(max-width:458px){
-    .absolute-right{
-      top: 120% !important;
-      left: 60% !important;
-    }
-  }
-  @media(max-width:396px){
-    .absolute-right{
-      top: 120% !important;
-      left: 53% !important;
     }
   }
 </style>
@@ -204,10 +127,10 @@
         <ul class="navbar-nav ms-auto">
             <% if !user_signed_in? %>
                 <li class="nav-item active my-1 d-flex justify-content-end align-items-center">
-                    <%= link_to new_user_session_path, class: "nav-link nav-visible" do %><i class="me-1 fa fa-user me-2" aria-hidden="true" style="color:#18654e"></i>Log In<% end %>
+                    <%= link_to new_user_session_path, class: "nav-link nav-visible" do %><i class="me-1 fa fa-user me-2" aria-hidden="true"></i>Log In<% end %>
                 </li>
                 <li class="nav-item active my-1 d-flex justify-content-end align-items-center">
-                    <%= link_to new_user_registration_path, class: "nav-link nav-visible" do %><i class="me-1 fa fa-user me-2" aria-hidden="true" style="color:#18654e"></i>Sign Up<% end %>
+                    <%= link_to new_user_registration_path, class: "nav-link nav-visible" do %><i class="me-1 fa fa-user me-2" aria-hidden="true"></i>Sign Up<% end %>
                 </li>
             <% end %>
             <% if user_signed_in? %>
