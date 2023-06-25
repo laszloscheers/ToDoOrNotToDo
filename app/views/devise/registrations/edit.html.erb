@@ -61,6 +61,16 @@
   .content{
     min-height: 80vh;
   }
+  a{
+    text-decoration: none;
+    color:  rgba(0, 0, 0, 0.7);
+  }
+  a:hover{
+    color: rgba(0, 0, 0, 0.55);
+  }
+  .content{
+    min-height: 75vh;
+  }
 </style>
 <% if resource.errors.any? %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -94,7 +104,7 @@
           <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
         </div>
         <!-- Button trigger modal for account cancellation -->
-        <div class="field form-group my-4 ms-2">
+        <div class="field form-group my-4 ms-2  d-flex justify-content-end">
           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Update my Account</button>
         </div>
         <!-- Modal -->
@@ -114,7 +124,7 @@
                         <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
                             Cancel
                         </button>
-                        <div class="actions field m-2">
+                        <div class="actions field m-2 ">
                           <%= f.submit "Update my Account", class: "btn", "data-bs-dismiss": "modal", "aria-label": "Close" %>
                         </div>
                     </div>
@@ -125,5 +135,8 @@
       <% end %>
     </div>
   </div>
+    <div class="ms-4">
+      <%= link_to mytodos_path do %>Back to My To-do's page<% end %>
+    </div>
 </div>
 </div>
