@@ -20,4 +20,3 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("lastInputId", input.id);
     });
 });
-console.log("Hello");
