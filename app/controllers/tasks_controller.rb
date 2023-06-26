@@ -69,4 +69,12 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:description, :completed, :list_id, :user_id)
     end
+    
+    # Updates the list partial to render updated content.
+    def update_list
+      render turbo_stream:
+        turbo_stream.replace('lists',
+          partial: "partials/lists",
+          locals: { lists: current_user.lists, list: List.new, task: Task.new})
+    end
 end

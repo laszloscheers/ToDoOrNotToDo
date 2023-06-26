@@ -7,7 +7,7 @@
     }
     @media(max-width:476px){
     .forum-content{
-        margin: 0% 10% 0% 10%;
+        margin: 0% 5% 0% 5%;
     }
     }
     .jumbotron{
@@ -69,6 +69,12 @@
     @media(max-width:992px){
     .card-holder{
         margin-bottom: 5%;
+    }
+    }
+    @media(max-width:799px){
+    .lists-flow{
+        justify-content: center !important;
+        flex-direction: column !important;
     }
     }
     .card-user{
@@ -178,9 +184,13 @@
     .task-name-container{
         overflow-x: auto;
     }
+    .lists-card{
+        margin-right: 5%;
+    }
 
 </style>
 
+<%= javascript_include_tag "autofocus", "data-turbo-track": "reload", "data-turbolinks-eval": "false", defer: true %>
 <div class="row forum-content" >
 
     <!-- Jumbotron weolcome -->
@@ -230,262 +240,6 @@
 
     <hr />
 
-    <!-- Cards for Lists -->
-    <div class="card-container">
-        <% if current_user.lists.count == 0 %>
-            <div class="text-left jumbotron">
-                <h3 class="pb-4">Click the plus button to create a new list</h3>
-            </div>
-        <% end %>
-        <div class="d-flex flex-wrap">
-            <% current_user.lists.order(:id).each do |list| %>
-                <div class="card mt-4 mb-5 me-5" style="width: 18rem;">
-                    <div class="card-body d-flex flex-column">
-                        <div class="d-flex flex-row justify-content-between align-items-center list-name-container">
-                            <div class="list-name-container">
-                                <!-- Button trigger modal to edit list -->
-                                <button type="button" class="btn check-btn list-title" data-bs-toggle="modal" data-bs-target="#modalEditList<%= list.id %>" data-toggle="tooltip" title="Click on it to edit list name"><%= list.title %></button>
-                            </div>
-                            <!-- Modal for edit list -->
-                            <div class="modal fade" id="modalEditList<%= list.id %>" tabindex="-1" role="dialog" aria-labelledby="modalEditListLabel<%= list.id %>" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header d-flex justify-content-center">
-                                            <h3 class="modal-title ms-4 my-2" id="modalDeleteListLabel<%= list.id %>">Edit list title</h3>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body px-5">
-                                            <%= form_with(model: list) do |form| %>
-                                                <% if list.errors.any? %>
-                                                    <div style="color: red">
-                                                    <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
+    <%= render "partials/lists", lists: current_user.lists, list: @list, task: @task %>
 
-                                                    <ul>
-                                                        <% list.errors.each do |error| %>
-                                                            <li><%= error.full_message %></li>
-                                                        <% end %>
-                                                    </ul>
-                                                    </div>
-                                                <% end %>
-                                                <br/>
-                                                <div class="form-group" >
-                                                    <%= form.label :title, style: "display: none" %>
-                                                    <%= form.text_field :title, class: "form-control", :required => true %>
-                                                </div>
-                                                <div class="form-group">
-                                                    <%= form.label :user_id, style: "display: none" %>
-                                                    <%= form.number_field :user_id, id: :list_id, value: current_user.id, type: :hidden %>
-                                                </div>
-                                                <br/>
-                                                <div class="d-flex justify-content-end">
-                                                    <%= form.submit  "Edit", class: "btn modal-buttons" %>
-                                                </div>
-                                                <br/>
-                                            <% end %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--End Modal -->
-
-                            <!-- Button trigger modal to delete list -->
-                            <button type="button" class="btn btn-posts-card-delete me-2" data-bs-toggle="modal" data-bs-target="#modalDeleteList<%= list.id %>"><i class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" title="Delete list"></i></button>
-                        </div>
-
-                        <!-- Modal for delete list -->
-                        <div class="modal fade" id="modalDeleteList<%= list.id %>" tabindex="-1" role="dialog" aria-labelledby="modalDeleteListLabel<%= list.id %>" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-center">
-                                        <h3 class="modal-title ms-4 my-2" id="modalDeleteListLabel<%= list.id %>">Are you sure you want to delete "<%= list.title %>"?</h3>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body d-flex justify-content-center">
-                                        <%= button_to list_path(list), method: :delete, class: "btn btn-danger btn-card" do %>Delete <% end %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Modal -->
-                        
-                        <hr/>
-
-                        <!-- Tasks -->
-                        <div class="tasks-container">
-                            <% list.tasks.order(:id).each do |task| %>
-                                <div class="d-flex flex-row justify-content-between align-items-center">
-                                    <div class="d-flex flex-row justify-content-between align-items-center task-name-container">
-                                        <!-- Mark as not done button -->
-                                        <%= form_with(model: task) do |form| %>
-                                            <% if list.errors.any? %>
-                                                <div style="color: red">
-                                                <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
-
-                                                <ul>
-                                                    <% list.errors.each do |error| %>
-                                                        <li><%= error.full_message %></li>
-                                                    <% end %>
-                                                </ul>
-                                                </div>
-                                            <% end %>
-                                            <div class="form-group">
-                                                <%= form.label :user_id, style: "display: none" %>
-                                                <%= form.number_field :user_id, id: :task_id, value: current_user.id, type: :hidden %>
-                                            </div>
-                                            <% if task.completed %>
-                                                <div class="form-group" >
-                                                    <%= form.label :completed, style: "display: none" %>
-                                                    <%= form.check_box :completed, checked: false, style: "display: none" %>
-                                                </div>
-                                                <div>
-                                                    <%= form.button :submit, class: "check-btn" do %><i class="fa fa-check-square-o ms-2 card-body-posts" aria-hidden="true" data-toggle="tooltip" title="Unmark task as done"></i><% end %>
-                                                </div>
-                                            <% else %>
-                                                <div class="form-group" >
-                                                    <%= form.label :completed, style: "display: none" %>
-                                                    <%= form.check_box :completed, checked: true, style: "display: none" %>
-                                                </div>
-                                                <div>
-                                                    <%= form.button :submit, class: "check-btn" do %><i class="fa fa-square-o ms-2 card-body-posts" aria-hidden="true" data-toggle="tooltip" title="Mark task as done"></i><% end %>
-                                                </div>
-                                            <% end %>
-                                        <% end %>
-                                        
-                                        <!-- Button trigger modal to edit finished task -->
-                                        <button type="button" class="btn check-btn" data-bs-toggle="modal" data-bs-target="#modalEditTask<%= task.id %>" data-toggle="tooltip" title="Click on it to edit task">
-                                            <% if task.completed %>
-                                                <s><%= task.description %></s>
-                                            <% else %>
-                                                <%= task.description %>
-                                            <% end %>
-                                        </button>
-
-                                        <!-- Modal for edit task name-->
-                                        <div class="modal fade" id="modalEditTask<%= task.id %>" tabindex="-1" role="dialog" aria-labelledby="modalEditTaskLabel<%= task.id %>" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header d-flex justify-content-center">
-                                                        <h3 class="modal-title ms-4 my-2" id="modalEditTaskLabel<%= task.id %>">Edit task</h3>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body px-5">
-                                                        <%= form_with(model: task) do |form| %>
-                                                            <% if list.errors.any? %>
-                                                                <div style="color: red">
-                                                                <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
-
-                                                                <ul>
-                                                                    <% list.errors.each do |error| %>
-                                                                        <li><%= error.full_message %></li>
-                                                                    <% end %>
-                                                                </ul>
-                                                                </div>
-                                                            <% end %>
-                                                            <div class="form-group" >
-                                                                <%= form.label :description, style: "display: none" %>
-                                                                <%= form.text_field :description, class: "form-control", :required => true %>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <%= form.label :user_id, style: "display: none" %>
-                                                                <%= form.number_field :user_id, id: :list_id, value: current_user.id, type: :hidden %>
-                                                            </div>
-                                                            <br/>
-                                                            <div class="d-flex justify-content-end">
-                                                                <%= form.submit  "Edit", class: "btn modal-buttons" %>
-                                                            </div>
-                                                            <br/>
-                                                        <% end %>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--End Modal -->
-                                    </div>
-
-                                    <!-- Delete button -->
-                                    <%= button_to task_path(task), method: :delete, class: "btn btn-posts-card-delete me-2" do %><i class="fa fa-trash-o" aria-hidden="true" data-toggle="tooltip" title="Delete task"></i><% end %>
-                                </div>
-                            <% end %>
-                        </div>
-                        <!-- End tasks -->
-
-                        <!-- Add Tasks -->
-                        <%= form_with(model: @task) do |form| %>
-                                <% if @task.errors.any? %>
-                                    <div style="color: red">
-                                        <h2><%= pluralize(@task.errors.count, "error") %> prohibited this @task from being saved:</h2>
-                                        <ul>
-                                        <% @task.errors.each do |error| %>
-                                            <li><%= error.full_message %></li>
-                                        <% end %>
-                                        </ul>
-                                    </div>
-                                <% end %>
-
-                                <div class="form-group d-flex flex-row mt-3 ms-2" >
-                                    <%= form.label :description, style: "display: none" %>
-                                    <%= form.text_field :description, class: "form-control me-3", :required => true, placeholder: "Add a new task" %>
-                                    <%= form.button :submit, class: "btn check-btn me-2" do %><i class="fa fa-plus card-body-posts" aria-hidden="true"  data-toggle="tooltip" title="Add new task to the list"></i><% end %>
-                                </div>
-                                <div>
-                                    <%= form.label :list_id, style: "display: none" %>
-                                    <%= form.text_field :list_id, id: :list_user_id, value: list.id, type: :hidden %>
-                                </div>
-                                <div>
-                                    <%= form.label :user_id, style: "display: none" %>
-                                    <%= form.number_field :user_id, id: :list_user_id, value: current_user.id, type: :hidden %>
-                                </div>
-                                <br/>
-                        <% end %>
-                        <!-- End add Tasks -->
-                    </div>
-                </div>
-            <% end %>
-            <div class="mt-3 mb-5 me-1 d-flex align-items-center">
-                <!-- Button trigger modal to add a new list -->
-                <button type="button" class="btn new-list-btn" data-bs-toggle="modal" data-bs-target="#modalAddList"><i class="fa fa-plus-square-o new-list-icon" aria-hidden="true"  data-toggle="tooltip" title="Create a new list"></i></button>
-
-                <!-- Modal for new list -->
-                <div class="modal fade" id="modalAddList" tabindex="-1" role="dialog" aria-labelledby="modalAddList" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header d-flex justify-content-center">
-                                <h3 class="modal-title ms-4 my-2" id="modalAddListLabel">Name your new list</h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body mt-4 mx-4">
-                                    <%= form_with(model: @list) do |form| %>
-                                            <% if @list.errors.any? %>
-                                                <div style="color: red">
-                                                    <h2><%= pluralize(@list.errors.count, "error") %> prohibited this @list from being saved:</h2>
-                                                    <ul>
-                                                        <% @list.errors.each do |error| %>
-                                                            <li><%= error.full_message %></li>
-                                                        <% end %>
-                                                    </ul>
-                                                </div>
-                                            <% end %>
-                                            <div class="form-group" >
-                                                <%= form.label :title, style: "display: none" %>
-                                                <%= form.text_field :title, class: "form-control", :required => true %>
-                                            </div>
-                                            <div class="form-group">
-                                                <%= form.label :user_id, style: "display: none" %>
-                                                <%= form.number_field :user_id, id: :list_id, value: current_user.id, type: :hidden %>
-                                            </div>
-                                            <br/>
-                                            <div class="d-flex justify-content-end mt-1">
-                                                <%= form.submit  "Create", class: "btn modal-buttons" %>
-                                            </div>
-                                            <br/>
-                                    <% end %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Modal -->
-            </div>
-
-        </div>
-    </div>
 </div>

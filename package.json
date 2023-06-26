@@ -15,7 +15,7 @@
     "sass": "^1.63.6"
   },
   "scripts": {
-    "build": "esbuild app/javascript/application.js app/javascript/controllers/application.js app/javascript/controllers/hello_controller.js app/javascript/controllers/index.js --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
+    "build": "esbuild app/javascript/application.js app/javascript/autofocus.js app/javascript/controllers/application.js app/javascript/controllers/hello_controller.js app/javascript/controllers/index.js --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "browserslist": [
