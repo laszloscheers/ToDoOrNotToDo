@@ -27,6 +27,10 @@
   .card-container{
     min-width:40rem;
   }
+  .content{
+    min-height: 85vh;
+    min-width: 30rem;
+  }
   @media(max-width:512px){
     .card{
       margin-left:0 !important;
@@ -39,16 +43,17 @@
     .card-container{
       min-width:20rem;
     }
-  }
   .content{
-    min-height: 85vh;
+    min-width: 25rem;
   }
+  }
+
 </style>
 
 <% if resource.errors.any? %>
   <%= render "devise/shared/error_messages", resource: resource %>
 <% end %>
-<div class="pe-5 pb-5 pt-4 content" style="min-width: 30rem;">
+<div class="px-5 pb-5 pt-4 content">
   <div class=" my-5 d-flex justify-content-center">
     <div class="card-container">
       <div class="card mt-5 mb-3">
