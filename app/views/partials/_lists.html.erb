@@ -1,5 +1,7 @@
 <%= turbo_frame_tag "lists" do %>
 
+    <%= javascript_include_tag "autofocus", "data-turbo-track": "reload", "data-turbolinks-eval": "false", defer: true %>
+
     <!-- Cards for Lists -->
     <div class="card-container">
         <% if lists.count == 0 %>
@@ -60,24 +62,25 @@
 
                             <!-- Button trigger modal to delete list -->
                             <button type="button" class="btn btn-posts-card-delete me-2" data-bs-toggle="modal" data-bs-target="#modalDeleteList<%= list.id %>"><i class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" title="Delete list"></i></button>
-                        </div>
 
-                        <!-- Modal for delete list -->
-                        <div class="modal fade" id="modalDeleteList<%= list.id %>" tabindex="-1" role="dialog" aria-labelledby="modalDeleteListLabel<%= list.id %>" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-center">
-                                        <h3 class="modal-title ms-4 my-2" id="modalDeleteListLabel<%= list.id %>">Are you sure you want to delete "<%= list.title %>"?</h3>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body d-flex justify-content-center">
-                                        <%= button_to list_path(list), method: :delete, class: "btn btn-danger btn-card", "data-bs-dismiss": "modal" do %>Delete <% end %>
+                            <!-- Modal for delete list -->
+                            <div class="modal fade" id="modalDeleteList<%= list.id %>" tabindex="-1" role="dialog" aria-labelledby="modalDeleteListLabel<%= list.id %>" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex justify-content-center">
+                                            <h3 class="modal-title ms-4 my-2" id="modalDeleteListLabel<%= list.id %>">Are you sure you want to delete "<%= list.title %>"?</h3>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <%= button_to list_path(list), method: :delete, class: "btn btn-danger btn-card delete-list-button", "data-bs-dismiss": "modal", id: "delete-list-button#{list.id}" do %>Delete <% end %>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <!--End Modal -->
-                        
+                        </div>
+                        <!--End List title -->
+
                         <hr/>
 
                         <!-- Tasks -->
@@ -201,8 +204,8 @@
                                 </div>
                                 <div class="form-group d-flex flex-row mt-3 ms-2" >
                                     <%= form.label :description, style: "display: none" %>
-                                    <%= form.text_field :description, class: "form-control me-3", :required => true, placeholder: "Add a new task", id: list.id %>
-                                    <%= form.button :submit, class: "btn check-btn me-2" do %><i class="fa fa-plus card-body-posts" aria-hidden="true"  data-toggle="tooltip" title="Add new task to the list"></i><% end %>
+                                    <%= form.text_field :description, class: "form-control me-3", :required => true, placeholder: "Add a new task", id: "text-field#{list.id}" %>
+                                    <%= form.button :submit, class: "btn check-btn me-2 add-task-button", id: list.id do %><i class="fa fa-plus card-body-posts" aria-hidden="true"  data-toggle="tooltip" title="Add new task to the list"></i><% end %>
                                 </div>
                                 <br/>
                         <% end %>
