@@ -42,7 +42,7 @@ RUN bundle install && \
     rm -rf ~/.bundle/ $BUNDLE_PATH/ruby/*/cache $BUNDLE_PATH/ruby/*/bundler/gems/*/.git
 
 # Install node modules
-COPY --link package.json yarn.lock ./
+COPY --link package.json package-lock.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Copy application code
@@ -81,7 +81,7 @@ USER rails:rails
 ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true"
 
-# Entrypoint prepares the database.
+# Entrypoint sets up the container.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
